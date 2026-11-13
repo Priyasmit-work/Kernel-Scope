@@ -68,11 +68,11 @@ Extensions: ESLint, Prettier, ES7+ React snippets, Error Lens.
 ## Status
 - [x] HTML prototype of all 8 pages with mock data (single file, vanilla JS), used as the visual/behaviour reference
 - [x] Folder structure and VS Code setup agreed
-- [ ] Create Vite project in `desktop/`, install deps
-- [ ] `tokens.css` + `global.css`
-- [ ] AppShell (Sidebar + Toolbar), routing
-- [ ] Reusable UI components, mock data service
-- [ ] Build pages in order: Overview, Processes, CPU, Memory, Network, TCP, Events, Settings
+- [x] Create Vite project in `desktop/`, install deps
+- [x] `tokens.css` + `global.css`
+- [x] AppShell (Sidebar + Toolbar), routing
+- [x] Reusable UI components, mock data service
+- [x] Build pages in order: Overview, Processes, CPU, Memory, Network, TCP, Events, Settings
 - [ ] Command palette, mode persistence, pause/resume
 - [ ] Tauri shell, C agent, eBPF collectors, real data, tests, packaging
 
