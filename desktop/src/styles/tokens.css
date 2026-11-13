@@ -1,0 +1,19 @@
+:root {
+  --bg: #0B1120;
+  --sidebar: #101A2C;
+  --card: #151F33;
+  --elevated: #1C2940;
+  --primary-blue: #3B82F6;
+  --highlight-blue: #60A5FA;
+  --cyan: #22D3EE;
+  --success: #22C55E;
+  --warning: #F59E0B;
+  --critical: #EF4444;
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --sidebar-width: 240px;
+  --toolbar-height: 64px;
+  --content-padding: 24px;
+  --card-radius: 12px;
+  --spacing: 16px;
+}
