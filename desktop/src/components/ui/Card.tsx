@@ -8,18 +8,24 @@ export interface CardProps {
 }
 
 export function Card({ children, className = '', elevated = false, onClick }: CardProps) {
-  const baseStyles = `
-    background: var(--card);
-    border-radius: var(--card-radius);
-    border: 1px solid var(--elevated);
-    ${elevated ? 'box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);' : ''}
-    ${onClick ? 'cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s;' : ''}
-  `;
+  const style: React.CSSProperties = {
+    background: 'var(--card)',
+    borderRadius: 'var(--card-radius)',
+    border: '1px solid var(--elevated)',
+  };
+
+  if (elevated) {
+    style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.3)';
+  }
+  if (onClick) {
+    style.cursor = 'pointer';
+    style.transition = 'border-color 0.15s, box-shadow 0.15s';
+  }
 
   return (
     <div
       className={className}
-      style={{ cssText: baseStyles }}
+      style={style}
       onClick={onClick}
       onMouseEnter={onClick ? () => {} : undefined}
       onMouseLeave={onClick ? () => {} : undefined}

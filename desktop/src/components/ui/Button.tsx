@@ -12,33 +12,40 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   fullWidth?: boolean;
 }
 
-const variantStyles: Record<ButtonVariant, string> = {
-  primary: `
-    background: var(--primary-blue);
-    color: white;
-    border: none;
-  `,
-  secondary: `
-    background: var(--elevated);
-    color: var(--text-primary);
-    border: 1px solid var(--sidebar);
-  `,
-  ghost: `
-    background: transparent;
-    color: var(--text-primary);
-    border: none;
-  `,
-  danger: `
-    background: var(--critical);
-    color: white;
-    border: none;
-  `,
+const variantStyles: Record<ButtonVariant, React.CSSProperties> = {
+  primary: {
+    background: 'var(--primary-blue)',
+    color: 'white',
+    border: 'none',
+  },
+  secondary: {
+    background: 'var(--elevated)',
+    color: 'var(--text-primary)',
+    border: '1px solid var(--sidebar)',
+  },
+  ghost: {
+    background: 'transparent',
+    color: 'var(--text-primary)',
+    border: 'none',
+  },
+  danger: {
+    background: 'var(--critical)',
+    color: 'white',
+    border: 'none',
+  },
 };
 
-const sizeStyles: Record<ButtonSize, string> = {
-  sm: 'padding: 6px 12px; font-size: 12px; border-radius: 6px;',
-  md: 'padding: 8px 16px; font-size: 14px; border-radius: 8px;',
-  lg: 'padding: 12px 24px; font-size: 15px; border-radius: 8px;',
+const sizeStyles: Record<ButtonSize, React.CSSProperties> = {
+  sm: { padding: '6px 12px', fontSize: '12px', borderRadius: '6px' },
+  md: { padding: '8px 16px', fontSize: '14px', borderRadius: '8px' },
+  lg: { padding: '12px 24px', fontSize: '15px', borderRadius: '8px' },
+};
+
+const hoverStyles: Record<ButtonVariant, React.CSSProperties> = {
+  primary: { background: '#2563EB' },
+  secondary: { background: 'var(--sidebar)', borderColor: 'var(--elevated)' },
+  ghost: { background: 'var(--elevated)' },
+  danger: { background: '#DC2626' },
 };
 
 export function Button({
@@ -56,36 +63,36 @@ export function Button({
 }: ButtonProps) {
   const isDisabled = disabled || loading;
 
-  const baseStyle = `
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    font-family: inherit;
-    font-weight: 500;
-    cursor: ${isDisabled ? 'not-allowed' : 'pointer'};
-    transition: opacity 0.15s, background-color 0.15s, border-color 0.15s;
-    opacity: ${isDisabled ? 0.5 : 1};
-    width: ${fullWidth ? '100%' : 'auto'};
-    white-space: nowrap;
-    ${variantStyles[variant]}
-    ${sizeStyles[size]}
-  `;
-
-  const hoverStyles = {
-    primary: 'background: #2563EB;',
-    secondary: 'background: var(--sidebar); border-color: var(--elevated);',
-    ghost: 'background: var(--elevated);',
-    danger: 'background: #DC2626;',
+  const baseStyle: React.CSSProperties = {
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '8px',
+    fontFamily: 'inherit',
+    fontWeight: 500,
+    cursor: isDisabled ? 'not-allowed' : 'pointer',
+    transition: 'opacity 0.15s, background-color 0.15s, border-color 0.15s',
+    opacity: isDisabled ? 0.5 : 1,
+    width: fullWidth ? '100%' : 'auto',
+    whiteSpace: 'nowrap',
+    ...variantStyles[variant],
+    ...sizeStyles[size],
+    ...style,
   };
 
   return (
     <button
       className={className}
-      style={{ cssText: baseStyle, ...style }}
+      style={baseStyle}
       disabled={isDisabled}
-      onMouseEnter={!isDisabled ? (e) => { e.currentTarget.style.cssText += hoverStyles[variant]; } : undefined}
-      onMouseLeave={!isDisabled ? (e) => { e.currentTarget.style.cssText = baseStyle; } : undefined}
+      onMouseEnter={!isDisabled ? (e) => {
+        const target = e.currentTarget as HTMLButtonElement;
+        Object.assign(target.style, hoverStyles[variant]);
+      } : undefined}
+      onMouseLeave={!isDisabled ? (e) => {
+        const target = e.currentTarget as HTMLButtonElement;
+        Object.assign(target.style, variantStyles[variant], sizeStyles[size]);
+      } : undefined}
       {...props}
     >
       {loading ? (
@@ -109,11 +116,6 @@ export function Button({
       ) : leftIcon}
       {children}
       {!loading && rightIcon}
-      <style jsx>{`
-        @keyframes spin {
-          to { transform: rotate(360deg); }
-        }
-      `}</style>
     </button>
   );
 }

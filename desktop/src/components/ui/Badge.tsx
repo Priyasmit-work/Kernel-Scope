@@ -11,17 +11,17 @@ interface BadgeProps {
   dot?: boolean;
 }
 
-const variantStyles: Record<BadgeVariant, string> = {
-  default: 'background: var(--elevated); color: var(--text-secondary);',
-  success: 'background: rgba(34, 197, 94, 0.15); color: var(--success); border: 1px solid rgba(34, 197, 94, 0.3);',
-  warning: 'background: rgba(245, 158, 11, 0.15); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.3);',
-  critical: 'background: rgba(239, 68, 68, 0.15); color: var(--critical); border: 1px solid rgba(239, 68, 68, 0.3);',
-  info: 'background: rgba(59, 130, 246, 0.15); color: var(--highlight-blue); border: 1px solid rgba(59, 130, 246, 0.3);',
+const variantStyles: Record<BadgeVariant, React.CSSProperties> = {
+  default: { background: 'var(--elevated)', color: 'var(--text-secondary)' },
+  success: { background: 'rgba(34, 197, 94, 0.15)', color: 'var(--success)', border: '1px solid rgba(34, 197, 94, 0.3)' },
+  warning: { background: 'rgba(245, 158, 11, 0.15)', color: 'var(--warning)', border: '1px solid rgba(245, 158, 11, 0.3)' },
+  critical: { background: 'rgba(239, 68, 68, 0.15)', color: 'var(--critical)', border: '1px solid rgba(239, 68, 68, 0.3)' },
+  info: { background: 'rgba(59, 130, 246, 0.15)', color: 'var(--highlight-blue)', border: '1px solid rgba(59, 130, 246, 0.3)' },
 };
 
-const sizeStyles: Record<BadgeSize, string> = {
-  sm: 'padding: 2px 8px; font-size: 11px; border-radius: 9999px;',
-  md: 'padding: 4px 10px; font-size: 12px; border-radius: 9999px;',
+const sizeStyles: Record<BadgeSize, React.CSSProperties> = {
+  sm: { padding: '2px 8px', fontSize: '11px', borderRadius: '9999px' },
+  md: { padding: '4px 10px', fontSize: '12px', borderRadius: '9999px' },
 };
 
 export function Badge({ children, variant = 'default', size = 'md', className = '', dot = false }: BadgeProps) {
@@ -36,8 +36,8 @@ export function Badge({ children, variant = 'default', size = 'md', className = 
         fontFamily: 'inherit',
         letterSpacing: '0.02em',
         textTransform: 'uppercase',
-        ...(variantStyles[variant]),
-        ...(sizeStyles[size]),
+        ...variantStyles[variant],
+        ...sizeStyles[size],
       }}
     >
       {dot && (

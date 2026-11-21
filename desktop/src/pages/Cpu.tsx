@@ -37,7 +37,7 @@ export function Cpu() {
               </div>
             ))}
           </div>
-        </CardContent      </Card>
+        </CardContent>      </Card>
 
       <Card>
         <CardHeader title="System Load" subtitle="1m / 5m / 15m averages" />
